@@ -10,7 +10,7 @@ import traceback
 from select import select
 import socket
 
-serverPort = 7382  # 포트.
+serverPort = 7382  # 포트
 
 #초기값 설정
 INITIAL_COLOR = "blue"
@@ -36,87 +36,55 @@ LEAVE_MSG = "leave\n"
 STARTING_INDEX = 2
 
 
-class WindowForIP:  # IP 입력화면 클래스
+class window1:#IP,NICKNAME 입력화면 클래스 
 
-    def __init__(self, Master):
+    def __init__(self,Master):
         self.master = Master
-        Master.title("IP")
+        Master.title("Entrance") 
         self.mainFrame = Frame(self.master)
         self.mainFrame.pack(fill=X)
-
-        # serverIP 입력 프레임과 입력위젯
+   
+        #serverIP 입력 프레임과 입력위젯 
         self.IP_frame1 = Frame(self.mainFrame)
         self.IP_frame1.pack(fill=X)
-        self.ipLabel = Label(self.IP_frame1)  # Server IP메시지 출력 위젯
-        self.ipLabel.configure(text="Server IP", width=10)
-        self.ipLabel.pack(side=LEFT)
-        self.IP_entry = Entry(self.IP_frame1)  # Server IP입력창 위젯
+        self.ipLabel = Label(self.IP_frame1)#Server IP메시지 출력 위젯 
+        self.ipLabel.configure(text = "Server IP", width =10)
+        self.ipLabel.pack(side = LEFT)
+        self.IP_entry = Entry(self.IP_frame1)#Server IP입력창 위젯 
         self.IP_entry.pack(side=LEFT)
 
-        # OK버튼,END버튼 프레임과 위젯
-        self.IP_frame2 = Frame(self.mainFrame)
-        self.IP_frame2.pack(fill=X)
-        self.emptyLabel = Label(self.IP_frame2)  # 이건 그냥 빈공간 만드려고 한 것 (무시)
-        self.emptyLabel.configure(text="   ", width=1)
-        self.emptyLabel.pack(side=LEFT)
-        self.button1 = Button(self.IP_frame2)  # OK버튼 위젯
-        self.button1.configure(text="OK", width=10, command=self.submit_IP)
-
-        self.button1.pack(side=LEFT, fill=X)
-        self.button2 = Button(self.IP_frame2)  # END버튼 위젯
-        self.button2.configure(text="END", width=10, command=self.exit1)
-        self.button2.pack(side=LEFT, fill=X)
-
-    def submit_IP(self):  # 입력화면에서 OK버튼을 누르면 입력한 IP를 저장 후, 닉네임입력화면으로 넘어가는 함수
-        global IP
-        IP = self.IP_entry.get()
-        self.master.quit()
-        self.master.destroy()
-
-    def exit1(self):  # IP입력화면에서 END버튼을 누르면 시스템 종료
-        sys.exit()
-
-
-class WindowForNickname:  # Nickname 입력화면 클래스
-
-    def __init__(self, Master):
-        self.master = Master
-        Master.title("Start")
-        self.mainFrame = Frame(self.master)
-        self.mainFrame.pack(fill=X)
-
-        # nickname입력 프레임과 입력위젯
+        #nickname입력 프레임과 입력위젯 
         self.nick_frame1 = Frame(self.mainFrame)
         self.nick_frame1.pack(fill=X)
-        self.nickLabel = Label(self.nick_frame1)  # Nickname메시지 출력 위젯
-        self.nickLabel.configure(text="NickName", width=10)
-        self.nickLabel.pack(side=LEFT)
-        self.nick_entry = Entry(self.nick_frame1)  # Nickname입력창 위젯
+        self.nickLabel = Label(self.nick_frame1) #Nickname메시지 출력 위젯 
+        self.nickLabel.configure(text = "NickName", width =10)
+        self.nickLabel.pack(side = LEFT) 
+        self.nick_entry = Entry(self.nick_frame1) #Nickname입력창 위젯  
         self.nick_entry.pack(side=LEFT)
+   
+        #OK버튼,END버튼 프레임과 위젯 
+        self.IP_frame2 = Frame(self.mainFrame)
+        self.IP_frame2.pack(fill=X)
+        self.emptyLabel = Label(self.IP_frame2)#이건 그냥 빈공간 만드려고 한 것 (무시)
+        self.emptyLabel.configure(text = "   ", width =1)
+        self.emptyLabel.pack(side = LEFT)
+        self.button1= Button(self.IP_frame2)#OK버튼 위젯 
+        self.button1.configure(text ="OK",width =10,command=self.submit)
 
-        # OK버튼,END버튼 프레임과 위젯
-        self.nick_frame2 = Frame(self.mainFrame)
-        self.nick_frame2.pack(fill=X)
-        self.emptyLabel2 = Label(self.nick_frame2)  # 이건 그냥 빈공간 만드려고 한 것 (무시)
-        self.emptyLabel2.configure(text="   ", width=1)
-        self.emptyLabel2.pack(side=LEFT)
-        self.button3 = Button(self.nick_frame2)  # OK버튼 위젯
-        self.button3.configure(text="OK", width=10, command=self.submit_Nick)
-        self.button3.pack(side=LEFT, fill=X)
-        self.button4 = Button(self.nick_frame2)  # END버튼 위젯
-        self.button4.configure(text="END", width=10, command=self.exit2)
-        self.button4.pack(side=LEFT, fill=X)
-
-    def submit_Nick(self):  # 입력화면에서 OK버튼을 누르면 입력한 Nickname를 저장 후, 채팅화면으로 넘어가는 함수
-        global Name
+        self.button1.pack(side =LEFT, fill=X)
+        self.button2= Button(self.IP_frame2)#END버튼 위젯
+        self.button2.configure(text ="END",width =10,command=self.exit1)
+        self.button2.pack(side=LEFT, fill=X)
+   
+    def submit(self): #입력화면에서 OK버튼을 누르면 입력한 IP를 저장 후, 닉네임입력화면으로 넘어가는 함수  
+        global IP, Name
         Name = self.nick_entry.get()
+        IP= self.IP_entry.get()
+        #Input_List.append(Name)
         self.master.quit()
         self.master.destroy()
 
-    def exit2(self):  # 채팅화면에서 EXIT버튼을 누르면 시스템종료
-
-        channelToServer.close()
-        mySocket.close()
+    def exit1(self):#IP입력화면에서 END버튼을 누르면 시스템 종료  
         sys.exit()
 
 
@@ -223,9 +191,22 @@ class mainapp():  # 채팅 화면
         self.boldbutton = Button(self.tool3_frame, text="set", width=1)
         self.boldbutton.pack(side=LEFT)
 
-        ####----------------------empty tool_frame 페인트 툴에 빈 프레임 (무시)
+        ####----------------------empty tool_frame 페인트 툴에 커스텀이모티콘 저장소  ()
         self.tool4_frame = Frame(self.left_frame, width=150, height=420)
         self.tool4_frame.pack(side=TOP)
+
+        self.top_customplace = Frame(self.tool4_frame,width = 150,height = 210)
+        self.top_customplace.pack(side=TOP)
+        self.custom_Button1= Button(self.top_customplace,width = 8, height = 10)
+        self.custom_Button2= Button(self.top_customplace,width = 8, height = 10)
+        self.custom_Button1.pack(side = LEFT)
+        self.custom_Button2.pack(side = RIGHT)
+        self.bottom_customplace=Frame(self.tool4_frame,width = 150,height = 210)
+        self.bottom_customplace.pack(side=TOP)
+        self.custom_Button3= Button(self.bottom_customplace,width = 8, height = 10)
+        self.custom_Button4= Button(self.bottom_customplace,width = 8, height =10)
+        self.custom_Button3.pack(side = LEFT)
+        self.custom_Button4.pack(side = RIGHT)
 
         #### Label in right_top_frame 공지메시지, 그림판
         # ------------noticeLabel 공지메시지  띄우는 위젯
@@ -307,7 +288,7 @@ class mainapp():  # 채팅 화면
 
     #
     def __data_to_list(self, decoded_data):
-        """ 
+        """
         __get_data() 함수에서 쓰이는 함수
         서버에서 받은 바이트를 디코딩한 메세지를 배열의 배열로 바꿔주는 역할
         아주 큰 길이의 스트링을 작은 단위의 배열로 바꿔준다
@@ -327,7 +308,7 @@ class mainapp():  # 채팅 화면
 
 
     def __join_friend(self, friend_name):
-        """ 
+        """
         __get_data() 함수에서 쓰이는 함수.
         채팅방에 참가한 유저를 업데이트
         파라미터 friend_name: 새로운 유저이름을 담고있는 스트링
@@ -337,10 +318,10 @@ class mainapp():  # 채팅 화면
 
 
     def __draw_other_shapes(self, msg_lst):
-        """ 
+        """
         __get_data() 함수에서 쓰이는 함수.
         서버에서 도형정보, 좌표정보, 색깔등의 정보를 받아와서 캔버스에 그린다
-        
+       
         파라미터 msg_lst: 배열의 배열. 각 배열은 사용자이름, 도형정보, 도형좌표, 색깔정보를 담고있다
         """
         user_name, shape, coords, color = msg_lst[MSG_CONTENT:]
@@ -357,19 +338,19 @@ class mainapp():  # 채팅 화면
             self.__canvas.create_polygon(coords_tuple, fill=color)
 
     def __friend_leave(self, msg_list):
-        """ 
-        __get_data() 함수에서 쓰이는 함수. 
+        """
+        __get_data() 함수에서 쓰이는 함수.
         유져가 나가면 서버로부터 데이터를 받아 업데이트
-        
-        파라미터 msg_list: 스트링들의 배열 
+       
+        파라미터 msg_list: 스트링들의 배열
         """
         friend_name = msg_list[MSG_CONTENT]
         index = self.__online_friends.index(friend_name)
         self.__online_friends.remove(friend_name)
-
+        self.listbox.delete(1)
     def __add_initial_friends(self, msg_lst):
-        """ 
-        __get_data() 함수에서 쓰이는 함수. 
+        """
+        __get_data() 함수에서 쓰이는 함수.
         새로운 유져가 접속하게되면 이미 접속되어 있는 유저들의 리스트들 받고 참가유저리스트 업데이트
         파라미터 msg_lst: 스트링들의 배열. 배열의 2번째 인덱스에 참가된 모든 유저들의 이름을 담고있다
         :return: None
@@ -381,10 +362,10 @@ class mainapp():  # 채팅 화면
             self.listbox.insert(1, username)
 
     def __error_msg(self, error_msg):
-        """ 
-       __get_data() 함수에서 쓰이는 함수. 
+        """
+       __get_data() 함수에서 쓰이는 함수.
         에러가 발생하면 새로운 윈도우를 띄운다
-        
+       
         파라미터 error_msg: 에러메세지를 나타내는 스트링
         :return: None
         """
@@ -408,18 +389,18 @@ class mainapp():  # 채팅 화면
 
         """
             다중입출력을 위해 select사용
-            
+           
             select(rlist, wlist, xlist, timeout) -> (rlist, wlist, xlist)
             파일디스크립터들이 입출력을 위한 준비가 완료될때까지 기다린다
-            
+           
             rlist -- 읽을준비가 완료될때까지 기다린다
-            wlist -- 쓰기준비과 완료될때까지 기다린다 
+            wlist -- 쓰기준비과 완료될때까지 기다린다
             xlist -- 특별한 상황에만 쓰인다
             timeout -- 이 시간을 넘기면 타임아웃
         """
         readable_sockets = select([self.__channelToServer], [], [], 0.01)[READ_SOCK]
 
-
+ 
 
         while len(readable_sockets) > 0: #받을 자료가 있다면
             for sock in readable_sockets:
@@ -446,7 +427,7 @@ class mainapp():  # 채팅 화면
         self.master.after(100, self.__get_data) #100ms 마다 호출
 
     def __join_game(self):
-        """ 
+        """
         채팅방에 참여한다는 메세지를 보내는 함수
         서버에게 유저네임을 보낸다.
         """
@@ -454,7 +435,7 @@ class mainapp():  # 채팅 화면
         self.__channelToServer.sendall(bytes(join_msg, encoding='utf8'))
 
     def __color_menu_handler(self, value):
-        """ 
+        """
         색깔을 고르는 이벤트가 발생했을때 처리하는 함수
         파라미터 value: 유저가 고른 색깔
         """
@@ -470,13 +451,13 @@ class mainapp():  # 채팅 화면
 
 
     def __shape_button_handler(self, shape):
-        """ 
+        """
         도형종류를 정하는 이벤트가 발생하면 처리하는 함수
         파라미터 shape: 도형의 종류
         """
 
         def determine_shape():
-            """ 
+            """
             도형의 종류를 결정한다.
 
             """
@@ -489,7 +470,7 @@ class mainapp():  # 채팅 화면
         return determine_shape
 
     def __get_click_coords(self, event):
-        """ 
+        """
         마우스를 클릭하면 좌표를 저장하는 함수
         파라미터 event: 마우스 클릭 이벤트
         """
@@ -499,11 +480,11 @@ class mainapp():  # 채팅 화면
         self.__draw_shape()  # 도형을 그린다
 
     def __list_to_tuple(self, lst):
-        """ 
+        """
         이 함수는 마우스 클릭 x,y 좌표 튜플 리스트를 받는다
         튜플배열을 하나의 튜플로 바꾼다
-        
-        파라미터 lst: 튜플들로 이루어진 배열 
+       
+        파라미터 lst: 튜플들로 이루어진 배열
                     예) [(x1,y1),(x2,y2),...]
 
         반환하는것: 하나의 튜플, 파라미터로 받은 리스트의 모든 좌표를 담고있다
@@ -516,9 +497,9 @@ class mainapp():  # 채팅 화면
         return tuple(answer_list)
 
     def __tup_string(self, mouse_coordinates):
-        """ 
+        """
         __list_to_tuple의해 생성된 마우스 좌표 튜플을 받아서
-        스트링으로 바꾼다 
+        스트링으로 바꾼다
 
         파라미터: self.__list_to_tuple 의해 생성된 마우스좌표 튜플.
             (x1, y1, x2, y2, ...) 식으로 생성되어있다
@@ -536,7 +517,7 @@ class mainapp():  # 채팅 화면
         return final_string
 
     def __draw_shape(self):
-        """ 
+        """
         도형을 그리는 함수
         충분한 마우스 클릭이 있었는지 확인후
         현재 고른 도형에 맞는 도형을 그리라는 메세지를 서버로 보낸다
@@ -563,7 +544,7 @@ class mainapp():  # 채팅 화면
             self.__channelToServer.sendall(bytes(shape_message, encoding='utf8'))
 
     def __close_window_handler(self):
-        """ 
+        """
         윈도우 종료이벤트를 처리하는 함수
         """
         # 나간다는 메세지를 서버에게 전송한다
@@ -575,6 +556,7 @@ class mainapp():  # 채팅 화면
         self.messageLog.configure(state="normal")
         self.messageLog.insert(END, data)
         self.messageLog.configure(state="disabled")
+        self.messageLog.see(END)
 
     # 메시지 입력
     def buttonClicked(self):
@@ -600,11 +582,11 @@ def handler(sock):
             print(data)
             main.logRefresh(data)
 
-
+ 
 
 
 root = Tk()
-entrance = WindowForIP(root)
+entrance = window1(root)
 root.title("IP")
 root.mainloop()
 
@@ -612,23 +594,27 @@ try:
     print(IP + "로 접속 시도")
     mySocket.connect((IP, int(serverPort)))
     mySocket.settimeout(5.1)
+    #s.send(Name)
+    mySocket.send(Name.encode('utf-8'))
+    print (Name+"으로 접속!")
     print("접속 완료")
 except:
     print("접속 실패")
+    traceback.print_exc()
     sys.exit()
 
 # Nickname입력화면
-root1 = Tk()
-entrance = WindowForNickname(root1)
-root1.title("Nickname")
-root1.mainloop()
+#root1 = Tk()
+#entrance = WindowForNickname(root1)
+#root1.title("Nickname")
+#root1.mainloop()
 
-try:
-    mySocket.send(Name.encode('utf-8'))
-    print(Name + "으로 접속!")
-except:
-    traceback.print_exc()
-    sys.exit()
+#try:
+  #  mySocket.send(Name.encode('utf-8'))
+  #  print(Name + "으로 접속!")
+#except:
+   # traceback.print_exc()
+   # sys.exit()
 
 thread1 = Thread(target=handler, args=(mySocket,)).start()
 
@@ -643,4 +629,4 @@ root2.title("main")
 root2.mainloop()
 
 channelToServer.close()
-mySocket.close()
+mySocket.close() 
