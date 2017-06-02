@@ -5,7 +5,6 @@ import sys
 from socket import *
 from socket import error as socket_error
 from threading import *
-
 import socketserver
 from queue import Queue,Empty
 from threading import Thread
