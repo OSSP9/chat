@@ -10,7 +10,7 @@ import traceback
 from select import select
 import socket
 
-serverPort = 7382  # 포트
+serverPort = 7382  # 포트.
 
 #초기값 설정
 INITIAL_COLOR = "blue"
