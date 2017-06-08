@@ -550,10 +550,24 @@ class mainapp():  # 채팅 화면
 
     # 메시지 출력
     def logRefresh(self, data):
+        print(" data = " + str(data))
+        print(" data = " + str(data, 'utf8'))
+        # deocode binary
+        data = str(data, 'utf8')
+
+        # here data is string formatted as bellow:
+        arr = data.split('\'')
+        user = arr[1]
+        txt = arr[3].split('\\')[0]
+
+        msgcontent= user + " : " + txt +'\n'
+        data2 = msgcontent.encode()
+
         self.messageLog.configure(state="normal")
-        self.messageLog.insert(END, data)
+        self.messageLog.insert(END, msgcontent)
         self.messageLog.configure(state="disabled")
         self.messageLog.see(END)
+
 
     # 메시지 입력
     def buttonClicked(self):
@@ -615,7 +629,7 @@ thread1 = Thread(target=handler, args=(mySocket,)).start()
 
 # 서버와의 연결:
 channelToServer = socket.socket()
-channelToServer.connect(('localhost', int('5678')))
+channelToServer.connect((IP, int(serverPort)))
 
 # 채팅화면
 root2 = Tk()
