@@ -550,8 +550,7 @@ class mainapp():  # 채팅 화면
 
     # 메시지 출력
     def logRefresh(self, data):
-        print(" data = " + str(data))
-        print(" data = " + str(data, 'utf8'))
+        
         # 바이너리디코드
         data = str(data, 'utf8')
 
@@ -612,24 +611,12 @@ except:
     traceback.print_exc()
     sys.exit()
 
-# Nickname입력화면
-# root1 = Tk()
-# entrance = WindowForNickname(root1)
-# root1.title("Nickname")
-# root1.mainloop()
-
-# try:
-#  mySocket.send(Name.encode('utf-8'))
-#  print(Name + "으로 접속!")
-# except:
-# traceback.print_exc()
-# sys.exit()
-
 thread1 = Thread(target=handler, args=(mySocket,)).start()
 
 # 서버와의 연결:
+# 2개의 연결이 있는데 아래가 페인트서버와연결 포트는 5678사용
 channelToServer = socket.socket()
-channelToServer.connect((IP, int(serverPort)))
+channelToServer.connect((IP, int(5678)))
 
 # 채팅화면
 root2 = Tk()

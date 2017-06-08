@@ -11,7 +11,8 @@ from threading import Thread
 import re
 import traceback
 
-HOST = "192.168.1.101"
+# 소켓이 모든 IP주소의 연결요청을 Accept하게 호스트 어드레스를 비워둠
+HOST = ''
 PORT = 7382
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
