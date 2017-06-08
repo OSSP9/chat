@@ -552,10 +552,10 @@ class mainapp():  # 채팅 화면
     def logRefresh(self, data):
         print(" data = " + str(data))
         print(" data = " + str(data, 'utf8'))
-        # deocode binary
+        # 바이너리디코드
         data = str(data, 'utf8')
 
-        # here data is string formatted as bellow:
+        # 포맷제외하고 내용만만들기
         arr = data.split('\'')
         user = arr[1]
         txt = arr[3].split('\\')[0]
