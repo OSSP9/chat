@@ -11,7 +11,7 @@ from threading import Thread
 import re
 import traceback
 
-HOST = "127.0.0.1"
+HOST = "192.168.1.101"
 PORT = 7382
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
