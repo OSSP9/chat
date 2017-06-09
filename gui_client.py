@@ -246,6 +246,9 @@ class mainapp():  # 채팅 화면
 
         #####----------------messageLog in right2_top_frame 메시지 로그창 프레임내 메시지 로그 , 메시지 스크롤바 위젯
         self.messageLog = Text(self.right2_top_frame)
+        self.messageLog.insert(END,'Enter "/notice message" to change the notice'+'\n')
+        self.messageLog.tag_add("here", "1.0", "1.0+1lines")
+        self.messageLog.tag_config("here",background = "floral white")
         self.scrollbar = Scrollbar(self.right2_top_frame, command=self.messageLog.yview)
         self.messageLog.configure(width=60, height=11, state="disabled", yscrollcommand=self.scrollbar.set)
         self.messageLog.grid()
@@ -547,10 +550,20 @@ class mainapp():  # 채팅 화면
         # 나간다는 메세지를 서버에게 전송한다
         self.__channelToServer.sendall(bytes(LEAVE_MSG, encoding='utf8'))
         self.master.quit()  # tkinter gui창을 종료한다
+    
+    #공지글설정 
+    def notice_change(self,msgcontent):
+        str1,str2 = msgcontent.split(': ')
+        str3 = str2[:8]
+        str4=str2[8:]
+        length = len(str4)
+        str5 = str4[:length-1]
+        if str3== '/notice ':
+           self.noticeLable.configure(text= str5)
 
     # 메시지 출력
     def logRefresh(self, data):
-        
+       
         # 바이너리디코드
         data = str(data, 'utf8')
 
@@ -558,7 +571,10 @@ class mainapp():  # 채팅 화면
         arr = data.split('\'')
         user = arr[1]
         txt = arr[3].split('\\')[0]
-
+        
+        #user_length = len(user)
+        
+        
         msgcontent= user + " : " + txt +'\n'
         data2 = msgcontent.encode()
 
@@ -566,6 +582,7 @@ class mainapp():  # 채팅 화면
         self.messageLog.insert(END, msgcontent)
         self.messageLog.configure(state="disabled")
         self.messageLog.see(END)
+        self.notice_change(msgcontent)
 
 
     # 메시지 입력
@@ -625,4 +642,4 @@ root2.title("main")
 root2.mainloop()
 
 channelToServer.close()
-mySocket.close()
+mySocket.close() 
