@@ -163,10 +163,10 @@ class mainapp():  # 채팅 화면
         self.tool2_frame.pack(side=TOP)
 
         # 검정
-        self.black_color = Button(self.tool2_frame, background="black", activebackground="black", borderwidth=0)
+        self.black_color = Button(self.tool2_frame, background="black", activebackground="black", borderwidth=0,command=self.__color_menu_handler("black"))
         self.black_color.pack(side=LEFT, fill=BOTH)
         # 지우기 버튼
-        self.erase = Button(self.tool2_frame, text="erase", width=1)
+        self.erase = Button(self.tool2_frame, text="erase", width=1, command=self.__shape_button_handler("erase"))
         self.erase.pack(side=LEFT, fill=BOTH)
         # 선 버튼
         self.option = Button(self.tool2_frame, text="/", width=1, command=self.__shape_button_handler("line"))
@@ -321,7 +321,6 @@ class mainapp():  # 채팅 화면
         """
         __get_data() 함수에서 쓰이는 함수.
         서버에서 도형정보, 좌표정보, 색깔등의 정보를 받아와서 캔버스에 그린다
-
         파라미터 msg_lst: 배열의 배열. 각 배열은 사용자이름, 도형정보, 도형좌표, 색깔정보를 담고있다
         """
         user_name, shape, coords, color = msg_lst[MSG_CONTENT:]
@@ -336,12 +335,14 @@ class mainapp():  # 채팅 화면
             self.__canvas.create_oval(coords_tuple, fill=color)
         elif shape == "triangle":
             self.__canvas.create_polygon(coords_tuple, fill=color)
+        elif shape == "erase":
+            self.__canvas.delete("all")
+            self.coords_tuple = tuple("")
 
     def __friend_leave(self, msg_list):
         """
         __get_data() 함수에서 쓰이는 함수.
         유져가 나가면 서버로부터 데이터를 받아 업데이트
-
         파라미터 msg_list: 스트링들의 배열
         """
         friend_name = msg_list[MSG_CONTENT]
@@ -366,7 +367,6 @@ class mainapp():  # 채팅 화면
         """
        __get_data() 함수에서 쓰이는 함수.
         에러가 발생하면 새로운 윈도우를 띄운다
-
         파라미터 error_msg: 에러메세지를 나타내는 스트링
         :return: None
         """
@@ -390,10 +390,8 @@ class mainapp():  # 채팅 화면
 
         """
             다중입출력을 위해 select사용
-
             select(rlist, wlist, xlist, timeout) -> (rlist, wlist, xlist)
             파일디스크립터들이 입출력을 위한 준비가 완료될때까지 기다린다
-
             rlist -- 읽을준비가 완료될때까지 기다린다
             wlist -- 쓰기준비과 완료될때까지 기다린다
             xlist -- 특별한 상황에만 쓰인다
@@ -458,7 +456,6 @@ class mainapp():  # 채팅 화면
         def determine_shape():
             """
             도형의 종류를 결정한다.
-
             """
             # 현재 도형을 입력받은 도형으로 변경
             self.__current_shape = shape
@@ -482,10 +479,8 @@ class mainapp():  # 채팅 화면
         """
         이 함수는 마우스 클릭 x,y 좌표 튜플 리스트를 받는다
         튜플배열을 하나의 튜플로 바꾼다
-
         파라미터 lst: 튜플들로 이루어진 배열
                     예) [(x1,y1),(x2,y2),...]
-
         반환하는것: 하나의 튜플, 파라미터로 받은 리스트의 모든 좌표를 담고있다
         """
 
@@ -499,13 +494,10 @@ class mainapp():  # 채팅 화면
         """
         __list_to_tuple의해 생성된 마우스 좌표 튜플을 받아서
         스트링으로 바꾼다
-
         파라미터: self.__list_to_tuple 의해 생성된 마우스좌표 튜플.
             (x1, y1, x2, y2, ...) 식으로 생성되어있다
-
         반환값: 스트링. 마우스 클릭 좌표를 담고있고 콤마로 구분되어 있다
         예) 'x1,y1,x2,y2,...'
-
         """
         # parentheses제거
         temp_string = str(mouse_coordinates)[1:-1]
@@ -523,7 +515,6 @@ class mainapp():  # 채팅 화면
         """
         mouse_coordinates = self.__list_to_tuple(self.__mouse_coordinates)
         msg_coords = self.__tup_string(mouse_coordinates)
-
         # 도형메세지를 생성하는 부분 ;로 구분이 되어있고 도형종류, 색갈등의 정보를 담는 스트링
         shape_message = "shape" + ';' + self.__current_shape + ';' + \
                         msg_coords + ';' + self.__current_color + '\n'
@@ -541,6 +532,11 @@ class mainapp():  # 채팅 화면
 
             # 서버로 전송
             self.__channelToServer.sendall(bytes(shape_message, encoding='utf8'))
+
+        elif self.__current_shape == "erase":
+            self.__canvas.delete("all")
+            self.__channelToServer.sendall(bytes(shape_message, encoding='utf8'))
+
 
     def __close_window_handler(self):
         """
@@ -587,13 +583,13 @@ class mainapp():  # 채팅 화면
 
     def buttonClicked_sub(self, event):
         message = self.textinput.get(1.0, 'end-1c')
-        # if decoded_data[index] == '\n':
         if message[0] == '\n' : message = message[1:] #\n이 다음메세지에 딸려오는것방지
         mySocket.send(message.encode('utf-8'))
-        self.textinput.delete(0.0, END)
+        self.textinput.delete(1.0, END)
 
     def sendMessage(self):
         message = self.textinput.get(1.0, END)
+        if message[0] == '\n' : message = message[1:] #\n이 다음메세지에 딸려오는것방지
         mySocket.send(message.encode('utf-8'))
         self.textinput.delete(1.0, END)
 
