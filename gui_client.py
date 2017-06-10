@@ -587,13 +587,13 @@ class mainapp():  # 채팅 화면
 
     def buttonClicked_sub(self, event):
         message = self.textinput.get(1.0, 'end-1c')
-        # if decoded_data[index] == '\n':
         if message[0] == '\n' : message = message[1:] #\n이 다음메세지에 딸려오는것방지
         mySocket.send(message.encode('utf-8'))
-        self.textinput.delete(0.0, END)
+        self.textinput.delete(1.0, END)
 
     def sendMessage(self):
         message = self.textinput.get(1.0, END)
+        if message[0] == '\n' : message = message[1:] #\n이 다음메세지에 딸려오는것방지
         mySocket.send(message.encode('utf-8'))
         self.textinput.delete(1.0, END)
 
