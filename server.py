@@ -353,9 +353,7 @@ Thread(target=controller.run).start()
 
 while 1:  # 커멘드라인 루프
     cmd = input('>>')
-    if cmd == 'x':  # 종료
-        # 스레드는 어떻게 종료?;;
-        # 객체 삭제 X, __stop() X,
+    if cmd == 'x':  # 종료 
         ThreadHandler.shutdown = True  # thread들에게 종료 신호를 보낸다.
         ThreadAccept.shutdown = True
         acceptor.joinChildThreads()
