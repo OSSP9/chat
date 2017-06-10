@@ -33,7 +33,9 @@ OVAL_LINE_RECT_COORDS_AMOUNT = 2
 DEFAULT_LINE_WIDTH = 3
 NAME_COORDS = 0
 LEAVE_MSG = "leave\n"
-STARTING_INDEX = 2 
+STARTING_INDEX = 2
+b1 = "up"
+xold, yold = None, None
 
 
 class window1:  # IP,NICKNAME 입력화면 클래스
@@ -113,9 +115,9 @@ class mainapp():  # 채팅 화면
         # -----------toptop_frame------------------SAVE, EXIT버튼 프레임 및 위젯
         self.toptop_frame = Frame(self.masterFrame, width=450, height=1)
         self.toptop_frame.pack()
-        self.savebutton = Button(self.toptop_frame, text="SAVE", width=35)
+        self.savebutton = Button(self.toptop_frame, text="SAVE", width=36)
         self.savebutton.pack(side=LEFT)
-        self.exitbutton = Button(self.toptop_frame, text="EXIT", width=35, command=self.exit3)
+        self.exitbutton = Button(self.toptop_frame, text="EXIT", width=36, command=self.exit3)
         self.exitbutton.pack(side=RIGHT)
 
         # -------------top_frame----------------
@@ -158,13 +160,14 @@ class mainapp():  # 채팅 화면
                                    command=self.__color_menu_handler("purple"))
         self.purple_color.pack(side=LEFT)
 
+        # 검정
+        self.black_color = Button(self.tool_frame, background="black", activebackground="black", borderwidth=0,command=self.__color_menu_handler("black"))
+        self.black_color.pack(side=LEFT, fill=BOTH)
         ####----------------------tool2_frame 페인트 툴에 색(검정), 지우기, 선,원,사각형을 구현할 프레
         self.tool2_frame = Frame(self.left_frame, width=160, height=70)
         self.tool2_frame.pack(side=TOP)
 
-        # 검정
-        self.black_color = Button(self.tool2_frame, background="black", activebackground="black", borderwidth=0,command=self.__color_menu_handler("black"))
-        self.black_color.pack(side=LEFT, fill=BOTH)
+     
         # 지우기 버튼
         self.erase = Button(self.tool2_frame, text="erase", width=1, command=self.__shape_button_handler("erase"))
         self.erase.pack(side=LEFT, fill=BOTH)
@@ -177,18 +180,21 @@ class mainapp():  # 채팅 화면
         # 사각형 버튼
         self.option2 = Button(self.tool2_frame, text="ㅁ", width=1, command=self.__shape_button_handler("rectangle"))
         self.option2.pack(side=LEFT, fill=BOTH)
+        # 펜버튼
+        self.option3 = Button(self.tool2_frame, text="Pen", width=1, command=self.__shape_button_handler("pen"))
+        self.option3.pack(side=LEFT, fill=BOTH)
 
         ####----------------------tool3_frame 페인트 툴에 선의 두께를 구현할 프레임
         self.tool3_frame = Frame(self.left_frame, width=150, height=70)
         self.tool3_frame.pack(side=TOP)
         # Bold 라고 화면에 글씨 띄우는 위젯
-        self.label_bold = Label(self.tool3_frame, text="Bold")
-        self.label_bold.pack(side=LEFT)
+        #self.label_bold = Label(self.tool3_frame, text="Bold")
+        #self.label_bold.pack(side=LEFT)
         # 두께 입력창
-        self.Entry_bold = Entry(self.tool3_frame, width=13)
-        self.Entry_bold.pack(side=LEFT)
-        # 두께 입력하고 적용할 버튼
-        self.boldbutton = Button(self.tool3_frame, text="set", width=1)
+        #self.Entry_bold = Entry(self.tool3_frame, width=13)
+        #self.Entry_bold.pack(side=LEFT)
+        # 슬라이드 쇼 적용할 버튼  
+        self.boldbutton = Button(self.tool3_frame, text="Slide show", width=20)
         self.boldbutton.pack(side=LEFT)
 
         ####----------------------empty tool_frame 페인트 툴에 커스텀이모티콘 저장소  ()
@@ -217,10 +223,10 @@ class mainapp():  # 채팅 화면
         ###----------------drawing_area in right_frame------------그림판 위젯
         self.__canvas = Canvas(self.right_frame, background="white", width=380, height=480)
         self.__canvas.pack()
-        self.__canvas.bind("<Button-1>", self.__get_click_coords)
-        '''self.__canvas.bind("<Motion>", self.motion)
+        # self.__canvas.bind("<Button-1>", self.__get_click_coords)
+        self.__canvas.bind("<Motion>", self.motion)
         self.__canvas.bind("<ButtonPress-1>", self.b1down)
-        self.__canvas.bind("<ButtonRelease-1>", self.b1up)'''
+        self.__canvas.bind("<ButtonRelease-1>", self.b1up)
 
         # ---------------bottom_frame---------사용자 리스트, 메시지 채팅창 프레임
         self.bottom_frame = Frame(self.masterFrame, height=190, width=400)
@@ -236,7 +242,7 @@ class mainapp():  # 채팅 화면
         self.right2_frame.pack(side=LEFT, fill=BOTH, expand=YES)
 
         ###--------------listbox in left2_frame 사용자 리스트 위젯
-        self.listbox = Listbox(self.left2_frame, height=12, width=24, background="white")
+        self.listbox = Listbox(self.left2_frame, height=12, width=26, background="white")
         self.listbox.pack(side=LEFT)
 
         ###----------- right2_top_frame in right2 frame 메시지 채팅창 프레임 내의 메시지 로그창 프레임
@@ -317,6 +323,34 @@ class mainapp():  # 채팅 화면
         self.__online_friends.append(friend_name)
         self.listbox.insert(1, friend_name)
 
+
+    def motion(self, event):
+        if b1 == "down":
+            global xold, yold
+            if xold is not None and yold is not None:
+                x1,y1 = event.x, event.y
+                self.__mouse_coordinates.append((x1,y1))
+                event.widget.create_line(xold, yold, x1,y1, smooth=TRUE)
+            xold = event.x
+            yold = event.y
+
+    def b1down(self,event):
+        global b1
+        if self.__current_shape == 'pen':
+            b1 = "down"
+        else:
+            point = (event.x, event.y)  # 마우스버튼을 눌렀을때의 좌표
+            self.__mouse_coordinates.append(point)
+            self.__draw_shape()
+
+    def b1up(self, event):
+        global b1, xold, yold
+        b1 = "up"
+        xold = None
+        yold = None
+        self.__draw_shape()  # 도형을 그린다
+
+
     def __draw_other_shapes(self, msg_lst):
         """
         __get_data() 함수에서 쓰이는 함수.
@@ -324,8 +358,9 @@ class mainapp():  # 채팅 화면
         파라미터 msg_lst: 배열의 배열. 각 배열은 사용자이름, 도형정보, 도형좌표, 색깔정보를 담고있다
         """
         user_name, shape, coords, color = msg_lst[MSG_CONTENT:]
-        print(color)  # 현재 그려진 도형의 색깔출력
+        # print(color)  # 현재 그려진 도형의 색깔출력
         coords_tuple = tuple(coords.split(','))
+        print(coords_tuple)
 
         if shape == "line":
             self.__canvas.create_line(coords_tuple, fill=color, width=3)
@@ -338,6 +373,12 @@ class mainapp():  # 채팅 화면
         elif shape == "erase":
             self.__canvas.delete("all")
             self.coords_tuple = tuple("")
+        elif shape == "pen": 
+            for i in range(2, len(coords_tuple), 2):
+                x1,y1,x2,y2 = coords_tuple[i-2:i+2]
+                one_tuple = tuple((x1,y1,x2,y2))
+                self.__canvas.create_line(coords_tuple, fill=color, width=3)
+
 
     def __friend_leave(self, msg_list):
         """
@@ -470,6 +511,7 @@ class mainapp():  # 채팅 화면
         마우스를 클릭하면 좌표를 저장하는 함수
         파라미터 event: 마우스 클릭 이벤트
         """
+        print('in click')
 
         point = (event.x, event.y)  # 마우스버튼을 눌렀을때의 좌표
         self.__mouse_coordinates.append(point)
@@ -513,13 +555,20 @@ class mainapp():  # 채팅 화면
         충분한 마우스 클릭이 있었는지 확인후
         현재 고른 도형에 맞는 도형을 그리라는 메세지를 서버로 보낸다
         """
+        global b1
+
         mouse_coordinates = self.__list_to_tuple(self.__mouse_coordinates)
         msg_coords = self.__tup_string(mouse_coordinates)
         # 도형메세지를 생성하는 부분 ;로 구분이 되어있고 도형종류, 색갈등의 정보를 담는 스트링
         shape_message = "shape" + ';' + self.__current_shape + ';' + \
                         msg_coords + ';' + self.__current_color + '\n'
 
-        if len(self.__mouse_coordinates) == TRIANGLE_COORDS_AMOUNT:
+        if self.__current_shape == "pen":
+             if b1 == "up":
+                self.__mouse_coordinates = []  # 마우스좌표 초기화
+                self.__channelToServer.sendall(bytes(shape_message, encoding='utf8'))
+
+        elif len(self.__mouse_coordinates) == TRIANGLE_COORDS_AMOUNT:
 
             self.__mouse_coordinates = []  # 마우스좌표 초기화
             # 서버로 보낸다
@@ -532,6 +581,7 @@ class mainapp():  # 채팅 화면
 
             # 서버로 전송
             self.__channelToServer.sendall(bytes(shape_message, encoding='utf8'))
+
 
         elif self.__current_shape == "erase":
             self.__canvas.delete("all")
