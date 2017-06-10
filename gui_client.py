@@ -115,9 +115,9 @@ class mainapp():  # 채팅 화면
         # -----------toptop_frame------------------SAVE, EXIT버튼 프레임 및 위젯
         self.toptop_frame = Frame(self.masterFrame, width=450, height=1)
         self.toptop_frame.pack()
-        self.savebutton = Button(self.toptop_frame, text="SAVE", width=35)
+        self.savebutton = Button(self.toptop_frame, text="SAVE", width=36)
         self.savebutton.pack(side=LEFT)
-        self.exitbutton = Button(self.toptop_frame, text="EXIT", width=35, command=self.exit3)
+        self.exitbutton = Button(self.toptop_frame, text="EXIT", width=36, command=self.exit3)
         self.exitbutton.pack(side=RIGHT)
 
         # -------------top_frame----------------
@@ -160,13 +160,13 @@ class mainapp():  # 채팅 화면
                                    command=self.__color_menu_handler("purple"))
         self.purple_color.pack(side=LEFT)
 
+        # 검정
+        self.black_color = Button(self.tool_frame, background="black", activebackground="black", borderwidth=0,command=self.__color_menu_handler("black"))
+        self.black_color.pack(side=LEFT, fill=BOTH)
         ####----------------------tool2_frame 페인트 툴에 색(검정), 지우기, 선,원,사각형을 구현할 프레
         self.tool2_frame = Frame(self.left_frame, width=160, height=70)
         self.tool2_frame.pack(side=TOP)
 
-        # 검정
-        self.black_color = Button(self.tool2_frame, background="black", activebackground="black", borderwidth=0)
-        self.black_color.pack(side=LEFT, fill=BOTH)
         # 지우기 버튼
         self.erase = Button(self.tool2_frame, text="erase", width=1, command=self.__shape_button_handler("erase"))
         self.erase.pack(side=LEFT, fill=BOTH)
@@ -180,20 +180,20 @@ class mainapp():  # 채팅 화면
         self.option2 = Button(self.tool2_frame, text="ㅁ", width=1, command=self.__shape_button_handler("rectangle"))
         self.option2.pack(side=LEFT, fill=BOTH)
         # 펜버튼
-        self.option3 = Button(self.tool2_frame, text="P", width=1, command=self.__shape_button_handler("pen"))
+        self.option3 = Button(self.tool2_frame, text="Pen", width=1, command=self.__shape_button_handler("pen"))
         self.option3.pack(side=LEFT, fill=BOTH)
 
         ####----------------------tool3_frame 페인트 툴에 선의 두께를 구현할 프레임
         self.tool3_frame = Frame(self.left_frame, width=150, height=70)
         self.tool3_frame.pack(side=TOP)
         # Bold 라고 화면에 글씨 띄우는 위젯
-        self.label_bold = Label(self.tool3_frame, text="Bold")
-        self.label_bold.pack(side=LEFT)
+        #self.label_bold = Label(self.tool3_frame, text="Bold")
+        #self.label_bold.pack(side=LEFT)
         # 두께 입력창
-        self.Entry_bold = Entry(self.tool3_frame, width=13)
-        self.Entry_bold.pack(side=LEFT)
-        # 두께 입력하고 적용할 버튼
-        self.boldbutton = Button(self.tool3_frame, text="set", width=1)
+        #self.Entry_bold = Entry(self.tool3_frame, width=13)
+        #self.Entry_bold.pack(side=LEFT)
+        # 슬라이드 쇼 적용할 버튼  
+        self.boldbutton = Button(self.tool3_frame, text="Slide show", width=20)
         self.boldbutton.pack(side=LEFT)
 
         ####----------------------empty tool_frame 페인트 툴에 커스텀이모티콘 저장소  ()
@@ -241,7 +241,7 @@ class mainapp():  # 채팅 화면
         self.right2_frame.pack(side=LEFT, fill=BOTH, expand=YES)
 
         ###--------------listbox in left2_frame 사용자 리스트 위젯
-        self.listbox = Listbox(self.left2_frame, height=12, width=24, background="white")
+        self.listbox = Listbox(self.left2_frame, height=12, width=26, background="white")
         self.listbox.pack(side=LEFT)
 
         ###----------- right2_top_frame in right2 frame 메시지 채팅창 프레임 내의 메시지 로그창 프레임
