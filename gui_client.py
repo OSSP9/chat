@@ -166,7 +166,7 @@ class mainapp():  # 채팅 화면
         self.black_color = Button(self.tool2_frame, background="black", activebackground="black", borderwidth=0)
         self.black_color.pack(side=LEFT, fill=BOTH)
         # 지우기 버튼
-        self.erase = Button(self.tool2_frame, text="erase", width=1)
+        self.erase = Button(self.tool2_frame, text="erase", width=1, command=self.__shape_button_handler("erase"))
         self.erase.pack(side=LEFT, fill=BOTH)
         # 선 버튼
         self.option = Button(self.tool2_frame, text="/", width=1, command=self.__shape_button_handler("line"))
@@ -336,6 +336,9 @@ class mainapp():  # 채팅 화면
             self.__canvas.create_oval(coords_tuple, fill=color)
         elif shape == "triangle":
             self.__canvas.create_polygon(coords_tuple, fill=color)
+        elif shape == "erase":
+            self.__canvas.delete("all")
+            self.coords_tuple = tuple("")
 
     def __friend_leave(self, msg_list):
         """
@@ -523,7 +526,6 @@ class mainapp():  # 채팅 화면
         """
         mouse_coordinates = self.__list_to_tuple(self.__mouse_coordinates)
         msg_coords = self.__tup_string(mouse_coordinates)
-
         # 도형메세지를 생성하는 부분 ;로 구분이 되어있고 도형종류, 색갈등의 정보를 담는 스트링
         shape_message = "shape" + ';' + self.__current_shape + ';' + \
                         msg_coords + ';' + self.__current_color + '\n'
@@ -541,6 +543,11 @@ class mainapp():  # 채팅 화면
 
             # 서버로 전송
             self.__channelToServer.sendall(bytes(shape_message, encoding='utf8'))
+
+        elif self.__current_shape == "erase":
+            self.__canvas.delete("all")
+            self.__channelToServer.sendall(bytes(shape_message, encoding='utf8'))
+
 
     def __close_window_handler(self):
         """
