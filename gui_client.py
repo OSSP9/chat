@@ -90,8 +90,9 @@ class window1:  # IP,NICKNAME 입력화면 클래스
 
 class mainapp():  # 채팅 화면
     # --------------------그림그리기 함수들----------------------
-    def exit3(self):  # 채팅화면에서 EXIT버튼을 누르면 시스템 종료
-
+    def exit3(self):  # 채팅화면에서 EXIT버튼을 누르면 시스템 종
+        disconnect = ('/disconnected')
+        mySocket.send(disconnect.encode('utf-8'))
         channelToServer.close()
         mySocket.close()
         sys.exit()

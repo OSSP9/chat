@@ -11,6 +11,7 @@ from threading import Thread
 import re
 import traceback
 
+
 # 소켓이 모든 IP주소의 연결요청을 Accept하게 호스트 어드레스를 비워둠
 HOST = ''
 PORT = 7382
@@ -69,6 +70,7 @@ class Service(socketserver.BaseRequestHandler):
             return
         self.closed = True
         self.controller.unregister(self)
+
         self.request.close()
 
 class Controller:
@@ -305,21 +307,28 @@ class ThreadHandler(Thread):
             except Exception as e:
                 print(e)
                 break                
-            else:                
+            else:        
+                data = data.decode('utf-8')
                 if not data:                    #데이터가 없다면
                     continue                    #컨티뉴
-                if data == '/x':                #종료메세지라면
-                    self.socketList.remove((self.socket, self.addr,self.name))   #목록에서 지우고
-                    self.socket.close()                #소켓 닫기
+                
+                if data == '/disconnected':  # 종료메세지라면
+                    x = (self.socket,self.addr,self.name)
+                    #self.socketList.remove((x))   #목록에서 지우고
+                    self.socket.shutdown(SHUT_RDWR)                #소켓 닫기
                     self.socket = None
                     print(self.name, " disconnected")
                     break
+                    
+               
                 else:
-                    self.sendMsgToAll(data)
-        self.socket.close()
+                    data = data.encode('utf-8')
+                    self.sendMsgToAll(data)   
+        #self.socket.shutdown(SHUT_RDWR)
         
     def sendMsgToAll(self, msg):        #리스트에 있는 모든 사람에게 메세지 전송
         for socket, addr, name in self.socketList:
+            print(msg)
             data = str(self.name) + ' : ' + str(msg)    #메세지와 주소 결합
             socket.send(data.encode('utf-8'))                   #전송
 
