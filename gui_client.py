@@ -223,19 +223,6 @@ class mainapp():  # 채팅 화면
         self.tool4_frame = Frame(self.left_frame, width=150, height=420)
         self.tool4_frame.pack(side=TOP)
 
-        self.top_customplace = Frame(self.tool4_frame, width=150, height=210)
-        self.top_customplace.pack(side=TOP)
-        self.custom_Button1 = Button(self.top_customplace, width=8, height=10)
-        self.custom_Button2 = Button(self.top_customplace, width=8, height=10)
-        self.custom_Button1.pack(side=LEFT)
-        self.custom_Button2.pack(side=RIGHT)
-        self.bottom_customplace = Frame(self.tool4_frame, width=150, height=210)
-        self.bottom_customplace.pack(side=TOP)
-        self.custom_Button3 = Button(self.bottom_customplace, width=8, height=10)
-        self.custom_Button4 = Button(self.bottom_customplace, width=8, height=10)
-        self.custom_Button3.pack(side=LEFT)
-        self.custom_Button4.pack(side=RIGHT)
-
         #### Label in right_top_frame 공지메시지, 그림판
         # ------------noticeLabel 공지메시지  띄우는 위젯
         self.noticeLable = Label(self.right_frame, width=54)
