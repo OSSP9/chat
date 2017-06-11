@@ -251,7 +251,7 @@ class mainapp():  # 채팅 화면
         self.right2_frame.pack(side=LEFT, fill=BOTH, expand=YES)
 
         ###--------------listbox in left2_frame 사용자 리스트 위젯
-        self.listbox = Listbox(self.left2_frame, height=12, width=24, background="white")
+        self.listbox = Listbox(self.left2_frame, height=12, width=26, background="white")
         self.listbox.pack(side=LEFT)
 
         ###----------- right2_top_frame in right2 frame 메시지 채팅창 프레임 내의 메시지 로그창 프레임
