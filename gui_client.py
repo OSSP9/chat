@@ -215,7 +215,7 @@ class mainapp():  # 채팅 화면
         self.tool3_frame = Frame(self.left_frame, width=150, height=70)
         self.tool3_frame.pack(side=TOP)
         # 슬라이드 쇼 적용할 버튼 
-        self.boldbutton = Button(self.tool3_frame, text="Gallery",,width=20)
+        self.boldbutton = Button(self.tool3_frame, text="Gallery",width=20)
         self.boldbutton.pack(side=LEFT)
 
 
