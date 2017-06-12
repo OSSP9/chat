@@ -12,7 +12,7 @@
 ---
  > - sudo apt-get install git  
  > - sudo apt-get install -y python3-pip 
- > - sudo pip install pil 
+ > - python3 -m pip install Pillow
  > - git clone git://github.com/ossp9/chat.git
   
 사용법
