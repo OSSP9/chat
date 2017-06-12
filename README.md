@@ -18,7 +18,7 @@
 사용
 ---
 **서버**
-  >- python3server.py로 서버 프로그램 실행
+>  - python3server.py로 서버 프로그램 실행
   
 **클라이언트**
 >  - python3 gui_client.py로 클라이언트 프로그램 실행
