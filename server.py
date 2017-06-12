@@ -108,7 +108,7 @@ class Controller:
         except KeyError:
             pass
 
-    def run(self):  # The work
+    def run(self):
         for cid, data in self._datareceiver():
             if cid == REG:
                 # print('REG')
@@ -176,8 +176,6 @@ class Worker:
             self.controller.send(tid, DELIM.join((b'join', uname)))
             self.groupcanvas[gname] = [MSGDELIM.join(self.groupcanvas[gname])]
             self.controller.send(cid, self.groupcanvas[gname][0])
-            # for msg in self.groupcanvas[gname]:
-            #    self.controller.send(cid,msg)
         self.groups[gname].add(cid)
         self.clientnames[cid] = uname
         self.clientgroups[cid] = gname
@@ -189,8 +187,6 @@ class Worker:
             return
         gname = self.clientgroups[cid]
         uname = self.clientnames[cid]
-        # assert(checkcolor(color) and checkshapeargs(stype,args))
-        # TODO: Possibly normalize arg ints
         msg = DELIM.join((b'shape', uname, stype, args, color))
         for tid in self.groups[gname]:
             self.controller.send(tid, msg)
