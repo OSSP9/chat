@@ -506,8 +506,8 @@ class mainapp():  # 채팅 화면
             self.coords_tuple = tuple("")
         elif shape == "pen":
             for i in range(2, len(coords_tuple), 2):
-                x1,y1,x2,y2 = coords_tuple[i-2:i+2]
-                one_tuple = tuple((x1,y1,x2,y2))
+                #x1,y1,x2,y2 = coords_tuple[i-2:i+2]
+                #one_tuple = tuple((x1,y1,x2,y2))
                 self.__canvas.create_line(coords_tuple, fill=color, width=3)
 
 
