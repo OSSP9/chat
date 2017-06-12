@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*_
+# -*- coding: utf-8 -*-
 import random
 import sys
 import subprocess
@@ -112,8 +112,8 @@ class mainapp():  # 채팅 화면
         global num
         if num == 10:
            num = 1
-               
-        save_path='/home/a/imagefolder'
+              
+        save_path='/home/som/imagefolder'
         ps=self.__canvas.postscript(colormode='color')
         img=PIL.Image.open(io.BytesIO(ps.encode('utf-8')))
 
@@ -124,7 +124,128 @@ class mainapp():  # 채팅 화면
         img.save(fullname)
         num = num+1
 
-    
+    def create_window(self):
+        #self.master=Master
+       
+        window=Toplevel(root2)
+        window.geometry("605x600")
+
+        self.galleryframe=Frame(window)
+        self.galleryframe.pack(side=TOP)
+        #self.galleryframe.bind("<Key-return>",self.save)
+        self.label_bold = Label(self.galleryframe, text="GALLERY",width=10)
+        self.label_bold.pack()
+        self.topgframe=Frame(self.galleryframe,width=600,height=200)
+        self.topgframe.pack(side=TOP)
+
+        self.ibutton1=Button(self.topgframe,width=20,height=10)
+        try:
+            self.image1=PhotoImage(file="/home/som/imagefolder/1.png")
+            self.ibutton1=Button(self.topgframe,width=160,height=188)
+            self.image1=self.image1.subsample(2)
+            self.ibutton1.config(image=self.image1)
+            self.ibutton1.image=self.image1
+        except TclError:
+            pass
+        self.ibutton1.pack(side=LEFT)
+
+        self.ibutton2=Button(self.topgframe,width=20,height=10)
+        try:
+            self.image2=PhotoImage(file="/home/som/imagefolder/2.png")
+            self.ibutton2=Button(self.topgframe,width=160,height=188)
+            self.image2=self.image2.subsample(2)
+            self.ibutton2.config(image=self.image2)
+            self.ibutton2.image=self.image2
+        except TclError:
+            pass
+        self.ibutton2.pack(side=LEFT)
+
+        self.ibutton3=Button(self.topgframe,width=20,height=10)
+        try:
+            self.image3=PhotoImage(file="/home/som/imagefolder/3.png")
+            self.ibutton3=Button(self.topgframe,width=160,height=188)
+            self.image3=self.image3.subsample(2)
+            self.ibutton3.config(image=self.image3)
+            self.ibutton3.image=self.image3
+        except TclError:
+            pass
+        self.ibutton3.pack(side=RIGHT)
+
+     
+
+        self.midgframe=Frame(self.galleryframe,width=600,height=200)
+        self.midgframe.pack(side=TOP)
+
+        self.ibutton4=Button(self.midgframe,width=20,height=10)
+        try:
+            self.image4=PhotoImage(file="/home/som/imagefolder/4.png")
+            self.ibutton4=Button(self.midgframe,width=160,height=188)
+            self.image4=self.image4.subsample(2)
+            self.ibutton4.config(image=self.image4)
+            self.ibutton4.image=self.image4
+        except TclError:
+            pass
+        self.ibutton4.pack(side=LEFT)
+
+        self.ibutton5=Button(self.midgframe,width=20,height=10)
+        try:
+            self.image5=PhotoImage(file="/home/som/imagefolder/5.png")
+            self.ibutton5=Button(self.midgframe,width=160,height=188)
+            self.image5=self.image5.subsample(2)
+            self.ibutton5.config(image=self.image5)
+            self.ibutton5.image=self.image5
+        except TclError:
+            pass
+        self.ibutton5.pack(side=LEFT)
+
+        self.ibutton6=Button(self.midgframe,width=20,height=10)
+        try:
+            self.image6=PhotoImage(file="/home/som/imagefolder/6.png")
+            self.ibutton6=Button(self.midgframe,width=160,height=188)
+            self.image6=self.image6.subsample(2)
+            self.ibutton6.config(image=self.image6)
+            self.ibutton6.image=self.image6
+        except TclError:
+            pass
+        self.ibutton6.pack(side=RIGHT)      
+
+
+        self.botgframe=Frame(self.galleryframe,width=600,height=200)
+        self.botgframe.pack(side=TOP)
+
+        self.ibutton7=Button(self.botgframe,width=20,height=10)
+        try:
+            self.image7=PhotoImage(file="/home/som/imagefolder/7.png")
+            self.ibutton7=Button(self.botgframe,width=160,height=188)
+            self.image7=self.image7.subsample(2)
+            self.ibutton7.config(image=self.image7)
+            self.ibutton7.image=self.image7
+        except TclError:
+            pass
+        self.ibutton7.pack(side=LEFT)
+
+        self.ibutton8=Button(self.botgframe,width=20,height=10)
+        try:
+            self.image8=PhotoImage(file="/home/som/imagefolder/8.png")
+            self.ibutton8=Button(self.botgframe,width=160,height=188)
+            self.image8=self.image8.subsample(2)
+            self.ibutton8.config(image=self.image8)
+            self.ibutton8.image=self.image8
+        except TclError:
+            pass
+        self.ibutton8.pack(side=LEFT)
+
+        self.ibutton9=Button(self.botgframe,width=20,height=10)
+        try:
+            self.image9=PhotoImage(file="/home/som/imagefolder/9.png")
+            self.ibutton9=Button(self.botgframe,width=160,height=188)
+            self.image9=self.image9.subsample(2)
+            self.ibutton9.config(image=self.image9)
+            self.ibutton9.image=self.image9
+        except TclError:
+            pass
+        self.ibutton9.pack(side=RIGHT)  
+
     # GUI를 그리는 함수
     def GUI_PART(self, Master):
         self.master = Master
@@ -142,7 +263,7 @@ class mainapp():  # 채팅 화면
         # -----------toptop_frame------------------SAVE, EXIT버튼 프레임 및 위젯
         self.toptop_frame = Frame(self.masterFrame, width=450, height=1)
         self.toptop_frame.pack()
-        
+       
         self.savebutton = Button(self.toptop_frame, text="SAVE", width=36,command=self.save)
         self.savebutton.pack(side=LEFT)
         self.exitbutton = Button(self.toptop_frame, text="EXIT", width=35, command=self.exit3)
@@ -212,12 +333,12 @@ class mainapp():  # 채팅 화면
         # 펜버튼
         self.option3 = Button(self.tool2_frame, text="P", width=1, command=self.__shape_button_handler("pen"))
         self.option3.pack(side=LEFT, fill=BOTH)
-      
+     
 
         self.tool3_frame = Frame(self.left_frame, width=150, height=70)
         self.tool3_frame.pack(side=TOP)
-        # 슬라이드 쇼 적용할 버튼 
-        self.boldbutton = Button(self.tool3_frame, text="Gallery",width=20)
+        # 슬라이드 쇼 적용할 버튼
+        self.boldbutton = Button(self.tool3_frame, text="Gallery",width=20, command=self.create_window)
         self.boldbutton.pack(side=LEFT)
 
 
@@ -699,4 +820,4 @@ root2.title("main")
 root2.mainloop()
 
 channelToServer.close()
-mySocket.close() 
+mySocket.close()  
