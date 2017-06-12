@@ -6,7 +6,7 @@
 
 개발 환경 
 --------
-  >- **python3.5**
+  >- **python3.5**
 
 설치
 ---
@@ -15,7 +15,7 @@
  > - sudo pip install pil 
  > - git clone git://github.com/ossp9/chat.git
   
-사용
+사용법
 ---
 **서버**
 >  - python3server.py로 서버 프로그램 실행
