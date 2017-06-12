@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*_
+# -*- coding: utf-8 -*-
 import random
 import sys
 import subprocess
@@ -45,7 +45,7 @@ LEAVE_MSG = "leave\n"
 STARTING_INDEX = 2
 b1 = "up"
 xold, yold = None, None
-
+num = 1
 
 class window1:  # IP,NICKNAME 입력화면 클래스
 
@@ -108,19 +108,143 @@ class mainapp():  # 채팅 화면
         sys.exit()
 
     def save(self):
+
+        global num
+        if num == 10:
+           num = 1
+              
         save_path='/home/som/imagefolder'
-        #save_path2='/home/som/imagefolder2'
         ps=self.__canvas.postscript(colormode='color')
         img=PIL.Image.open(io.BytesIO(ps.encode('utf-8')))
-        for i in range(1,10):
-            name=i
-        #name=random.randrange(1,100)
+
+        name=random.randrange(num,num+1)
+
         fullname=os.path.join(save_path,str(name)+".png")
         #fullname2=os.path.join(save_path2,str(name2)+".png")
         img.save(fullname)
-        #img.save(fullname2)
-  
+        num = num+1
 
+    def create_window(self):
+        #self.master=Master
+       
+        window=Toplevel(root2)
+        window.geometry("605x600")
+
+        self.galleryframe=Frame(window)
+        self.galleryframe.pack(side=TOP)
+        #self.galleryframe.bind("<Key-return>",self.save)
+        self.label_bold = Label(self.galleryframe, text="GALLERY",width=10)
+        self.label_bold.pack()
+        self.topgframe=Frame(self.galleryframe,width=600,height=200)
+        self.topgframe.pack(side=TOP)
+
+        self.ibutton1=Button(self.topgframe,width=20,height=10)
+        try:
+            self.image1=PhotoImage(file="/home/som/imagefolder/1.png")
+            self.ibutton1=Button(self.topgframe,width=160,height=188)
+            self.image1=self.image1.subsample(2)
+            self.ibutton1.config(image=self.image1)
+            self.ibutton1.image=self.image1
+        except TclError:
+            pass
+        self.ibutton1.pack(side=LEFT)
+
+        self.ibutton2=Button(self.topgframe,width=20,height=10)
+        try:
+            self.image2=PhotoImage(file="/home/som/imagefolder/2.png")
+            self.ibutton2=Button(self.topgframe,width=160,height=188)
+            self.image2=self.image2.subsample(2)
+            self.ibutton2.config(image=self.image2)
+            self.ibutton2.image=self.image2
+        except TclError:
+            pass
+        self.ibutton2.pack(side=LEFT)
+
+        self.ibutton3=Button(self.topgframe,width=20,height=10)
+        try:
+            self.image3=PhotoImage(file="/home/som/imagefolder/3.png")
+            self.ibutton3=Button(self.topgframe,width=160,height=188)
+            self.image3=self.image3.subsample(2)
+            self.ibutton3.config(image=self.image3)
+            self.ibutton3.image=self.image3
+        except TclError:
+            pass
+        self.ibutton3.pack(side=RIGHT)
+
+     
+
+        self.midgframe=Frame(self.galleryframe,width=600,height=200)
+        self.midgframe.pack(side=TOP)
+
+        self.ibutton4=Button(self.midgframe,width=20,height=10)
+        try:
+            self.image4=PhotoImage(file="/home/som/imagefolder/4.png")
+            self.ibutton4=Button(self.midgframe,width=160,height=188)
+            self.image4=self.image4.subsample(2)
+            self.ibutton4.config(image=self.image4)
+            self.ibutton4.image=self.image4
+        except TclError:
+            pass
+        self.ibutton4.pack(side=LEFT)
+
+        self.ibutton5=Button(self.midgframe,width=20,height=10)
+        try:
+            self.image5=PhotoImage(file="/home/som/imagefolder/5.png")
+            self.ibutton5=Button(self.midgframe,width=160,height=188)
+            self.image5=self.image5.subsample(2)
+            self.ibutton5.config(image=self.image5)
+            self.ibutton5.image=self.image5
+        except TclError:
+            pass
+        self.ibutton5.pack(side=LEFT)
+
+        self.ibutton6=Button(self.midgframe,width=20,height=10)
+        try:
+            self.image6=PhotoImage(file="/home/som/imagefolder/6.png")
+            self.ibutton6=Button(self.midgframe,width=160,height=188)
+            self.image6=self.image6.subsample(2)
+            self.ibutton6.config(image=self.image6)
+            self.ibutton6.image=self.image6
+        except TclError:
+            pass
+        self.ibutton6.pack(side=RIGHT)      
+
+
+        self.botgframe=Frame(self.galleryframe,width=600,height=200)
+        self.botgframe.pack(side=TOP)
+
+        self.ibutton7=Button(self.botgframe,width=20,height=10)
+        try:
+            self.image7=PhotoImage(file="/home/som/imagefolder/7.png")
+            self.ibutton7=Button(self.botgframe,width=160,height=188)
+            self.image7=self.image7.subsample(2)
+            self.ibutton7.config(image=self.image7)
+            self.ibutton7.image=self.image7
+        except TclError:
+            pass
+        self.ibutton7.pack(side=LEFT)
+
+        self.ibutton8=Button(self.botgframe,width=20,height=10)
+        try:
+            self.image8=PhotoImage(file="/home/som/imagefolder/8.png")
+            self.ibutton8=Button(self.botgframe,width=160,height=188)
+            self.image8=self.image8.subsample(2)
+            self.ibutton8.config(image=self.image8)
+            self.ibutton8.image=self.image8
+        except TclError:
+            pass
+        self.ibutton8.pack(side=LEFT)
+
+        self.ibutton9=Button(self.botgframe,width=20,height=10)
+        try:
+            self.image9=PhotoImage(file="/home/som/imagefolder/9.png")
+            self.ibutton9=Button(self.botgframe,width=160,height=188)
+            self.image9=self.image9.subsample(2)
+            self.ibutton9.config(image=self.image9)
+            self.ibutton9.image=self.image9
+        except TclError:
+            pass
+        self.ibutton9.pack(side=RIGHT)  
 
     # GUI를 그리는 함수
     def GUI_PART(self, Master):
@@ -139,7 +263,8 @@ class mainapp():  # 채팅 화면
         # -----------toptop_frame------------------SAVE, EXIT버튼 프레임 및 위젯
         self.toptop_frame = Frame(self.masterFrame, width=450, height=1)
         self.toptop_frame.pack()
-        self.savebutton = Button(self.toptop_frame, text="SAVE", width=35,command=self.save)
+       
+        self.savebutton = Button(self.toptop_frame, text="SAVE", width=36,command=self.save)
         self.savebutton.pack(side=LEFT)
         self.exitbutton = Button(self.toptop_frame, text="EXIT", width=35, command=self.exit3)
         self.exitbutton.pack(side=RIGHT)
@@ -184,13 +309,15 @@ class mainapp():  # 채팅 화면
                                    command=self.__color_menu_handler("purple"))
         self.purple_color.pack(side=LEFT)
 
+
+        # 검정
+        self.black_color = Button(self.tool_frame, background="black", activebackground="black", borderwidth=0,command=self.__color_menu_handler("black"))
+        self.black_color.pack(side=LEFT, fill=BOTH)
+
         ####----------------------tool2_frame 페인트 툴에 색(검정), 지우기, 선,원,사각형을 구현할 프레
         self.tool2_frame = Frame(self.left_frame, width=160, height=70)
         self.tool2_frame.pack(side=TOP)
 
-        # 검정
-        self.black_color = Button(self.tool2_frame, background="black", activebackground="black", borderwidth=0)
-        self.black_color.pack(side=LEFT, fill=BOTH)
         # 지우기 버튼
         self.erase = Button(self.tool2_frame, text="erase", width=1, command=self.__shape_button_handler("erase"))
         self.erase.pack(side=LEFT, fill=BOTH)
@@ -206,43 +333,18 @@ class mainapp():  # 채팅 화면
         # 펜버튼
         self.option3 = Button(self.tool2_frame, text="P", width=1, command=self.__shape_button_handler("pen"))
         self.option3.pack(side=LEFT, fill=BOTH)
-      
+     
 
         self.tool3_frame = Frame(self.left_frame, width=150, height=70)
         self.tool3_frame.pack(side=TOP)
-        # 슬라이드 쇼 적용할 버튼 
-        self.boldbutton = Button(self.tool3_frame, text="Slide show")
+        # 슬라이드 쇼 적용할 버튼
+        self.boldbutton = Button(self.tool3_frame, text="Gallery",width=20, command=self.create_window)
         self.boldbutton.pack(side=LEFT)
 
-        ####----------------------tool3_frame 페인트 툴에 선의 두께를 구현할 프레임
-        self.tool3_frame = Frame(self.left_frame, width=150, height=70)
-        self.tool3_frame.pack(side=TOP)
-        # Bold 라고 화면에 글씨 띄우는 위젯
-        self.label_bold = Label(self.tool3_frame, text="Bold")
-        self.label_bold.pack(side=LEFT)
-        # 두께 입력창
-        self.Entry_bold = Entry(self.tool3_frame, width=13)
-        self.Entry_bold.pack(side=LEFT)
-        # 두께 입력하고 적용할 버튼
-        self.boldbutton = Button(self.tool3_frame, text="set", width=1)
-        self.boldbutton.pack(side=LEFT)
 
         ####----------------------empty tool_frame 페인트 툴에 커스텀이모티콘 저장소  ()
         self.tool4_frame = Frame(self.left_frame, width=150, height=420)
         self.tool4_frame.pack(side=TOP)
-
-        self.top_customplace = Frame(self.tool4_frame, width=150, height=210)
-        self.top_customplace.pack(side=TOP)
-        self.custom_Button1 = Button(self.top_customplace, width=8, height=10)
-        self.custom_Button2 = Button(self.top_customplace, width=8, height=10)
-        self.custom_Button1.pack(side=LEFT)
-        self.custom_Button2.pack(side=RIGHT)
-        self.bottom_customplace = Frame(self.tool4_frame, width=150, height=210)
-        self.bottom_customplace.pack(side=TOP)
-        self.custom_Button3 = Button(self.bottom_customplace, width=8, height=10)
-        self.custom_Button4 = Button(self.bottom_customplace, width=8, height=10)
-        self.custom_Button3.pack(side=LEFT)
-        self.custom_Button4.pack(side=RIGHT)
 
         #### Label in right_top_frame 공지메시지, 그림판
         # ------------noticeLabel 공지메시지  띄우는 위젯
@@ -272,7 +374,7 @@ class mainapp():  # 채팅 화면
         self.right2_frame.pack(side=LEFT, fill=BOTH, expand=YES)
 
         ###--------------listbox in left2_frame 사용자 리스트 위젯
-        self.listbox = Listbox(self.left2_frame, height=12, width=24, background="white")
+        self.listbox = Listbox(self.left2_frame, height=12, width=26, background="white")
         self.listbox.pack(side=LEFT)
 
         ###----------- right2_top_frame in right2 frame 메시지 채팅창 프레임 내의 메시지 로그창 프레임
@@ -385,7 +487,6 @@ class mainapp():  # 채팅 화면
         """
         __get_data() 함수에서 쓰이는 함수.
         서버에서 도형정보, 좌표정보, 색깔등의 정보를 받아와서 캔버스에 그린다
-
         파라미터 msg_lst: 배열의 배열. 각 배열은 사용자이름, 도형정보, 도형좌표, 색깔정보를 담고있다
         """
         user_name, shape, coords, color = msg_lst[MSG_CONTENT:]
@@ -405,10 +506,6 @@ class mainapp():  # 채팅 화면
             self.__canvas.delete("all")
             self.coords_tuple = tuple("")
         elif shape == "pen":
-            # self.__canvas.bind("<Motion>", self.motion)
-            # self.__canvas.bind("<ButtonPress-1>", self.b1down)
-            # self.__canvas.bind("<ButtonRelease-1>", self.b1up)
-            # to create lines
             for i in range(2, len(coords_tuple), 2):
                 x1,y1,x2,y2 = coords_tuple[i-2:i+2]
                 one_tuple = tuple((x1,y1,x2,y2))
@@ -419,7 +516,6 @@ class mainapp():  # 채팅 화면
         """
         __get_data() 함수에서 쓰이는 함수.
         유져가 나가면 서버로부터 데이터를 받아 업데이트
-
         파라미터 msg_list: 스트링들의 배열
         """
         friend_name = msg_list[MSG_CONTENT]
@@ -444,7 +540,6 @@ class mainapp():  # 채팅 화면
         """
        __get_data() 함수에서 쓰이는 함수.
         에러가 발생하면 새로운 윈도우를 띄운다
-
         파라미터 error_msg: 에러메세지를 나타내는 스트링
         :return: None
         """
@@ -468,10 +563,8 @@ class mainapp():  # 채팅 화면
 
         """
             다중입출력을 위해 select사용
-
             select(rlist, wlist, xlist, timeout) -> (rlist, wlist, xlist)
             파일디스크립터들이 입출력을 위한 준비가 완료될때까지 기다린다
-
             rlist -- 읽을준비가 완료될때까지 기다린다
             wlist -- 쓰기준비과 완료될때까지 기다린다
             xlist -- 특별한 상황에만 쓰인다
@@ -536,7 +629,6 @@ class mainapp():  # 채팅 화면
         def determine_shape():
             """
             도형의 종류를 결정한다.
-
             """
             # 현재 도형을 입력받은 도형으로 변경
             self.__current_shape = shape
@@ -561,10 +653,8 @@ class mainapp():  # 채팅 화면
         """
         이 함수는 마우스 클릭 x,y 좌표 튜플 리스트를 받는다
         튜플배열을 하나의 튜플로 바꾼다
-
         파라미터 lst: 튜플들로 이루어진 배열
                     예) [(x1,y1),(x2,y2),...]
-
         반환하는것: 하나의 튜플, 파라미터로 받은 리스트의 모든 좌표를 담고있다
         """
 
@@ -578,13 +668,10 @@ class mainapp():  # 채팅 화면
         """
         __list_to_tuple의해 생성된 마우스 좌표 튜플을 받아서
         스트링으로 바꾼다
-
         파라미터: self.__list_to_tuple 의해 생성된 마우스좌표 튜플.
             (x1, y1, x2, y2, ...) 식으로 생성되어있다
-
         반환값: 스트링. 마우스 클릭 좌표를 담고있고 콤마로 구분되어 있다
         예) 'x1,y1,x2,y2,...'
-
         """
         # parentheses제거
         temp_string = str(mouse_coordinates)[1:-1]
@@ -733,4 +820,4 @@ root2.title("main")
 root2.mainloop()
 
 channelToServer.close()
-mySocket.close() 
+mySocket.close()  
