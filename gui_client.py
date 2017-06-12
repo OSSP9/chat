@@ -36,8 +36,7 @@ READ_SOCK = 0
 MSG_TYPE = 0
 MSG_CONTENT = 1
 X_COORD = 0
-Y_COORD = 1
-TRIANGLE_COORDS_AMOUNT = 3
+Y_COORD = 1 
 OVAL_LINE_RECT_COORDS_AMOUNT = 2
 DEFAULT_LINE_WIDTH = 3
 NAME_COORDS = 0
@@ -698,16 +697,9 @@ class mainapp():  # 채팅 화면
         if self.__current_shape == "pen":
              if b1 == "up":
                 self.__mouse_coordinates = []  # 마우스좌표 초기화
-                self.__channelToServer.sendall(bytes(shape_message, encoding='utf8'))
+                self.__channelToServer.sendall(bytes(shape_message, encoding='utf8')) 
 
-        elif len(self.__mouse_coordinates) == TRIANGLE_COORDS_AMOUNT:
-
-            self.__mouse_coordinates = []  # 마우스좌표 초기화
-            # 서버로 보낸다
-            self.__channelToServer.sendall(bytes(shape_message, encoding='utf8'))
-
-        elif len(self.__mouse_coordinates) == OVAL_LINE_RECT_COORDS_AMOUNT \
-                and self.__current_shape != "triangle":
+        elif len(self.__mouse_coordinates) == OVAL_LINE_RECT_COORDS_AMOUNT :
 
             self.__mouse_coordinates = []  # 마우스좌표 초기화
 
