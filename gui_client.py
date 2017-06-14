@@ -576,7 +576,8 @@ class mainapp():  # 채팅 화면
                     coded_data = sock.recv(READ_LIMIT)  # recv는 바이트로 받기때문에
                     decoded_data += coded_data.decode()  # 디코드해서 스트링으로 바꿔준다
                     readable_sockets = select([self.__channelToServer], [], [], 0.01)[READ_SOCK]
-
+        
+        #스트링형으로 받은 데이터를 다루기 쉽게 배열의 배열로 바꿔준다
         data_list = self.__data_to_list(decoded_data)
 
         # 각 메세지에 맞는 함수를 부른다
