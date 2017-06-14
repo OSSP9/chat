@@ -561,7 +561,6 @@ class mainapp():  # 채팅 화면
         decoded_data = ''
 
         """
-            다중입출력을 위해 select사용
             select(rlist, wlist, xlist, timeout) -> (rlist, wlist, xlist)
             파일디스크립터들이 입출력을 위한 준비가 완료될때까지 기다린다
             rlist -- 읽을준비가 완료될때까지 기다린다
